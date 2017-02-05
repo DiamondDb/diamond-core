@@ -1,0 +1,11 @@
+{
+  "name": "diamond-core",
+  "version": "1.0.0",
+  "description": "Core utilities used by evey DiamondDB module",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "author": "James Howe Edwards",
+  "license": "MIT"
+}
