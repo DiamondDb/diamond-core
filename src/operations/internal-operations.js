@@ -55,6 +55,22 @@ const fetchRecord = (table, id) => {
   }
 }
 
+const FILTER_RECORDS = 'FILTER_RECORDS'
+const comparators = ['EQ','GT','LT']
+
+const filterRecords = (table, key, comparator, value) => {
+  if(comparators.indexOf(comparator) < 0) throw new Error(`Invalid comparator: ${comparator}`)
+  return {
+    operation: FILTER_RECORDS,
+    data: {
+      table,
+      query: {
+        key, comparator, value
+      }
+    }
+  }
+}
+
 const PERSIST_ALL = 'PERSIST_ALL'
 const writeToDisk = () => {
   return {
@@ -87,6 +103,8 @@ module.exports = {
   writeToDisk,
   FETCH_RECORD,
   fetchRecord,
+  FILTER_RECORDS,
+  filterRecords,
   STORE_RECORD,
   storeRecord,
   MAKE_TABLE,
