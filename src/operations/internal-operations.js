@@ -1,3 +1,20 @@
+
+const SUCCESS = 'SUCCESS'
+const success = (data) => {
+  return {
+    operation: SUCCESS,
+    data
+  }
+}
+
+const FAILURE = 'FAILURE'
+const failure = (data) => {
+  return {
+    operation: FAILURE,
+    data
+  }
+}
+
 /*
  * Initializes the persistence layer: this should return the object containing metadata
  * for all tables.
@@ -19,6 +36,13 @@ const updateMeta = (tables) => {
     data: {
       tables
     }
+  }
+}
+
+const PERSIST_ALL = 'PERSIST_ALL'
+const writeToDisk = () => {
+  return {
+    operation: PERSIST_ALL
   }
 }
 
@@ -71,26 +95,26 @@ const filterRecords = (table, key, comparator, value) => {
   }
 }
 
-const PERSIST_ALL = 'PERSIST_ALL'
-const writeToDisk = () => {
+const FETCH_FILTER_RESULT = 'FETCH_FILTER_RESULT'
+const fetchFilterResult = (tableName, key, comparator, value) => {
   return {
-    operation: PERSIST_ALL
+    operation: FETCH_FILTER_RESULT,
+    tableName,
+    key,
+    comparator,
+    value
   }
 }
 
-const SUCCESS = 'SUCCESS'
-const success = (data) => {
+const STORE_FILTER_RESULT = 'STORE_FILTER_RESULT'
+const storeFilterResult = (tableName, key, comparator, value, result) => {
   return {
-    operation: SUCCESS,
-    data
-  }
-}
-
-const FAILURE = 'FAILURE'
-const failure = (data) => {
-  return {
-    operation: FAILURE,
-    data
+    operation: STORE_FILTER_RESULT,
+    tableName,
+    result,
+    query: {
+      key, comparator, value
+    }
   }
 }
 
@@ -99,18 +123,22 @@ module.exports = {
   failure,
   SUCCESS,
   success,
+  INITIALIZE_PERSISTANCE,
+  initialize,
+  UPDATE_META,
+  updateMeta,
   PERSIST_ALL,
   writeToDisk,
+  MAKE_TABLE,
+  makeTable,
   FETCH_RECORD,
   fetchRecord,
   FILTER_RECORDS,
   filterRecords,
   STORE_RECORD,
   storeRecord,
-  MAKE_TABLE,
-  makeTable,
-  INITIALIZE_PERSISTANCE,
-  initialize,
-  UPDATE_META,
-  updateMeta
+  FETCH_FILTER_RESULT,
+  fetchFilterResult,
+  STORE_FILTER_RESULT,
+  storeFilterResult
 }
